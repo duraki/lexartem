@@ -8,5 +8,6 @@
             "email": "duraki@linuxmail.org"
         }
     ],
+    "bin": ["bin/lexartem"],
     "require": {}
 }
