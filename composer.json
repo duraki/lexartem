@@ -1,0 +1,12 @@
+{
+    "name": "duraki/lexartem",
+    "description": "Open-source projects in form of art.",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Halis Duraki",
+            "email": "duraki@linuxmail.org"
+        }
+    ],
+    "require": {}
+}
