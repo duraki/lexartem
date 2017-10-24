@@ -15,15 +15,18 @@ $lexartem->logo();
 
 var_dump($argc);
 
-if ($argc == 1) // xxx: proper exception or help? missing arg?
+if ($argc == 1) // xxx: proper exception or help? missing arg project?
     echo 'No project passed';
 
 if ($argc == 2) {
-    if ($argv[2]) == '.') {
+    if ($argv[1] == '.') { // debug technique
         $lexartem->this();
+
+        return true;
     }
 
-    
-} // xxx: 
+    $lexartem->start();
+} 
 
 // xxx: do everything else
+exit();
