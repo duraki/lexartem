@@ -1,6 +1,11 @@
 #!/usr/bin/env php
 <?php
 
+// yeah, I though about it, but no, I think Symfony Console is a bit heavy for
+// what lexartem is doing here, riiiight?
+//
+// props to @fapbot
+
 require __DIR__.'/../vendor/autoload.php';
 
 use Lexartem\Lexartem;
@@ -8,7 +13,17 @@ use Lexartem\Lexartem;
 $lexartem = new Lexartem;
 $lexartem->logo();
 
-if ($argc == 0)
-    die('No project passed');
+var_dump($argc);
 
-// xxx: todo else
+if ($argc == 1) // xxx: proper exception or help? missing arg?
+    echo 'No project passed';
+
+if ($argc == 2) {
+    if ($argv[2]) == '.') {
+        $lexartem->this();
+    }
+
+    
+} // xxx: 
+
+// xxx: do everything else
