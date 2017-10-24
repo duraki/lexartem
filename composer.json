@@ -8,6 +8,9 @@
             "email": "duraki@linuxmail.org"
         }
     ],
+    "autoload": {
+        "psr-4": {"Lexartem\\": "src/Lexartem/"}
+    },
     "bin": ["bin/lexartem"],
     "require": {}
 }
