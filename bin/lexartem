@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+require __DIR__.'/../vendor/autoload.php';
+
+use Lexartem\Lexartem;
+
+$lexartem = new Lexartem;
+$lexartem->logo();
+
+if ($argc == 0)
+    die('No project passed');
+
+// xxx: todo else
