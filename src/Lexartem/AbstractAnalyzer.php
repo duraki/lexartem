@@ -28,9 +28,15 @@ abstract class AbstractAnalyzer
 
     /**
      * Open file and return file handler for future usage
+     * xxx: possible optimization for this is to load buffer till exact point
+     * xxx: for example, namespace is usually allocated after phptag val `<?php
+     * xxx: (irrelevant are comments), and is oneliner. 
+     *
+     * xxx: all such handling could be decoupled from here, but with a proper
+     * xxx: abstraction point, (pe: depends on language)
      *
      * @param $filename
-     * @return FileHandler
+     * @return SplFileObject
      */
     private function getFile($filename)
     {
