@@ -7,27 +7,41 @@ abstract class AbstractAnalyzer
 
     /**
      * Defines a project structure.
+     *
      * @var $structure
      */
     private $structure;
 
     /**
      * Defines a project path directory.
+     *
      * @var $projectDirectory
      */
     private $projectDirectory;
 
+    /**
+     * A single file handle.
+     *
+     * @var $file
+     */
+    private $file;
+
+    /**
+     * @inherit
+     */
     abstract protected function analyze();
 
     // xxx: impl free alloc mem
-    // xxx: impl on deconstruct
+    // xxx: impl on deconstruct or when must (locks)
     private function free()
     {
         // xxx: check globals too
+        $this->file = null;
     }
 
     /**
      * Open file and return file handler for future usage
+     *
      * xxx: possible optimization for this is to load buffer till exact point
      * xxx: for example, namespace is usually allocated after phptag val `<?php
      * xxx: (irrelevant are comments), and is oneliner. 
@@ -42,20 +56,24 @@ abstract class AbstractAnalyzer
     {
         // xxx: exit with proper exception
         if (empty($filename)) throw new \Exception();  
+        $this->file = SplFileObject($filename);
 
-        return new SplFileObject($filename);
+        return $this->file;
     }
 
-    private function getFilesInDirectory(
-        $directory,
-        $filter = '',
-        &$results = array()
-    ) {
-
+    /**
+     * Get files in directory
+     *
+     * @param $directory
+     * @param $filter
+     * @param $results +ref
+     * @retun array
+     */
+    private function getFilesInDirectory($directory, $filter = '', &$results = array()) 
+    {
         $files = scandir($directory);
 
         foreach ($files as $key => $f) {
-
             $path = realpath($directory.DIRECTORY_SEPARATOR.$value);
             $this->extract($path, $filter, $results);
         }
