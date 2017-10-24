@@ -29,7 +29,7 @@ abstract class AbstractAnalyzer
     /**
      * @inherit
      */
-    abstract protected function analyze();
+    abstract protected function analyze($file);
 
     // xxx: impl free alloc mem
     // xxx: impl on deconstruct or when must (locks)

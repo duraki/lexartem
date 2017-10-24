@@ -3,6 +3,7 @@
 namespace Lexartem;
 
 use Lexartem\Analyzer;
+use Lexartem\Runtime\Kernel;
 
 class Lexartem
 {
@@ -41,7 +42,20 @@ class Lexartem
 
     public function this()
     {
-        echo sprintf("%s\n", self::SMSG);
+        echo sprintf("%s [%s]\n", self::SMSG, getcwd());
+        $this->start(getcwd());
     }    
+
+    public function start($directory)
+    {
+        echo sprintf("%s [%s]\n", "Starting with directory", $directory);
+
+        $this->runtime = new Kernel;
+        $this->runtime->setDirectory($directory);
+        $this->runtime->setSyntax('php');
+        $this->runtime->execute();
+
+        //$this->analyzer = new Analyzer();
+    }
 
 }

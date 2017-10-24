@@ -11,6 +11,9 @@ namespace Lexartem;
 interface Analyzer
 {
     
-    protected function analyze();
+    public function analyze($file);
 
+    // xxx: impl language guesser
+    // xxx: scandir will have results of each file, meassure the scale of
+    // xxx: filenames or file syntax and compare results against each other
 }
