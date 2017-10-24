@@ -8,15 +8,14 @@ use Lexartem\AbstractAnalyzer;
 class NamespaceVectorAnalyzer extends AbstractAnalyzer implements Analyzer
 {
 
-    protected function analyze($file)
+    public function analyze($file)
     {
-        if (empty($file)) throw new \Exception();  
+        $fh = $this->getFile($file);
+        $namespace = null;
 
-        $namespace = null; $fh = fopen($file, 'r');
-        if (!$fh) throw new \Exception(); 
-
-        while (($line = fgets($fh)) !== false) {
-            if (strpos($line, 'namespace') === 0) {
+        while (!$fh->eof()) {
+            if (strpos($fh->fgets(), 'namespace')) { // detected namespace *tag
+                $this->getValueInterestFactor($line);
                 $p = explode(' ', $line);
                 $namespace = rtrim(trim($p[1]), ';');
                 $namespace = str_replace('\\', '.', $ns);
@@ -28,6 +27,22 @@ class NamespaceVectorAnalyzer extends AbstractAnalyzer implements Analyzer
         }
 
         fclose($fh);
+    }
+
+    /**
+     * pvif is allocated for object Namespace
+     *
+     * @value namespace \ExLexartem\Object;
+     * @param $line
+     * @return string
+     */
+    protected function getValueInterestFactor($line)
+    {
+        $line = explode(' ', $line); // [namespace] [\ExLexartem\Object;]
+        $line = rtrim( trim($line[1]), ';' ); // [\ExLexartem\Object]
+        $line = str_replace('\\', '.', $line); // [.ExLexartem.Object] (translate to prefered object hierarchy)
+
+        var_dump($line);die;
     }
 
 }
