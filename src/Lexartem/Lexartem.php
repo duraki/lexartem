@@ -2,8 +2,14 @@
 
 namespace Lexartem;
 
+use Lexartem\Analyzer;
+
 class Lexartem
 {
+
+    private $analyzer;
+
+    private const SMSG = "Am I being debugged, officer?";
 
     private const LOGO = [
 
@@ -32,5 +38,10 @@ class Lexartem
         echo sprintf("%s", pack('c*', ...self::LOGO )) ; 
         echo sprintf("%s\n\n", "lexartem - Open-source in a form of art");
     }
+
+    public function this()
+    {
+        echo sprintf("%s\n", self::SMSG);
+    }    
 
 }
