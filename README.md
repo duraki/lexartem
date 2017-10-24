@@ -11,8 +11,13 @@ Project will use forked sources from [D3](https://github.com/d3/d3/) examples.
 
 ## Projects
 
-### Symfony
+### Symfony Framework
 Symfony is a PHP-based web-application framework that is quite beautiful to use
 and scale. It is one of the most videly used PHP framework alongside with
 Laravel.
 
+### Linux Kernel
+Don't ask. I love C and it's aspect so presenting this will be quite awesome.
+For C, I'd like to pick various values from headers and includes and possibly
+make some kind of connection. Structure of code would also look awesome since
+the project is huge.
