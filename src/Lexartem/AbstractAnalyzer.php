@@ -19,6 +19,27 @@ abstract class AbstractAnalyzer
 
     abstract protected function analyze();
 
+    // xxx: impl free alloc mem
+    // xxx: impl on deconstruct
+    private function free()
+    {
+        // xxx: check globals too
+    }
+
+    /**
+     * Open file and return file handler for future usage
+     *
+     * @param $filename
+     * @return FileHandler
+     */
+    private function getFile($filename)
+    {
+        // xxx: exit with proper exception
+        if (empty($filename)) throw new \Exception();  
+
+        return new SplFileObject($filename);
+    }
+
     private function getFilesInDirectory(
         $directory,
         $filter = '',
