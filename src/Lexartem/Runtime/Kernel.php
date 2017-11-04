@@ -32,8 +32,8 @@ class Kernel
     {
         foreach (self::PHP as $vector) {
             // xxx: reflection class? :/
-            $vector = new $vector;
-            $vector->analyze($this->directory);
+            $vector = new $vector($this->directory, $this->syntax);
+            //$vector->analyze($this->directory);
         }
     }
 

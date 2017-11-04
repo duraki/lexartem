@@ -13,11 +13,13 @@ abstract class AbstractAnalyzer
     private $structure;
 
     /**
-     * Defines a project path directory.
+     * Defines a project path directory & language.
      *
-     * @var $projectDirectory
+     * @var $directory
+     * @var $language
      */
-    private $projectDirectory;
+    private $directory;
+    private $language;
 
     /**
      * A single file handle.
@@ -30,6 +32,13 @@ abstract class AbstractAnalyzer
      * @inherit
      */
     abstract protected function analyze($file);
+
+    function __construct($directory, $language)
+    {
+        $this->directory    = $directory;
+        $this->language     = $language;
+        $this->structure    = $this->getFilesInDirectory($directory);
+    }
 
     // xxx: impl free alloc mem
     // xxx: impl on deconstruct or when must (locks)
@@ -73,8 +82,8 @@ abstract class AbstractAnalyzer
     {
         $files = scandir($directory);
 
-        foreach ($files as $key => $f) {
-            $path = realpath($directory.DIRECTORY_SEPARATOR.$value);
+        foreach ($files as $file => $f) {
+            $path = realpath($directory.DIRECTORY_SEPARATOR.$f);
             $this->extract($path, $filter, $results);
         }
 
@@ -85,16 +94,46 @@ abstract class AbstractAnalyzer
     {
         if (!is_dir($path)) {
             if (empty($filter) || preg_match($filter, $path)) $results[] = $path;
+            return;
+        }
 
-        } elseif ($value != '.' && $value != '..') {
+        if ($path == '.' || $path == '..') {
+            return;
+        }
+
+        var_dump($path);
+        var_dump($filter);
+        var_dump($results);
+
+        $file = str_replace($this->directory, '', $path);
+        $file = ltrim(str_replace('/', '.', $path), '.'); // remove left slashes
+
+        $this->structure[] = $file;
+
+        var_dump($file);die;
+        $path = realpath($this->directory.DIRECTORY_SEPARATOR.$file);
+        var_dump($path);die;
+        $this->getFilesInDirectory($path, $filter, $results);
+        var_dump("F",$file);
+
+        /**
+        if (!is_dir($path)) {
+            if (empty($filter) || preg_match($filter, $path)) $results[] = $path;
+
+        } elseif ($path != '.' && $path != '..') { // skip backdir
+
+            var_dump($path);
+            //var_dump($this->directory);die;
     
-            $file = str_replace($this->projectDirectory, '', $path); // extract file from path
+            $file = str_replace($this->directory, '', $path); // extract file from path
+            var_dump($file);
             $file = str_replace('/', '.', $file); // replace path slashes with dots
             $file = ltrim($file, '.'); // remove all left trailing dots (if any)
 
             $this->structure[] = $file;
-            $this->getFilesInDirectory($path, $filter, $results);
+            //$this->getFilesInDirectory($path, $filter, $results);
         }
+        **/
     }
 
 }
